@@ -11,7 +11,7 @@ set :stage,           :production
 set :deploy_via,      :remote_cache
 set :deploy_to, "/var/www/#{fetch(:application)}"
 
-# append :linked_files, 'config/database.yml', 'config/secrets.yml'
+append :linked_files, 'config/secrets.yml'
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system'
 
 set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
