@@ -5,19 +5,20 @@ class SpeachToTextWorker
 
   def perform(filename, speaker)
     body = {
-      'initial_request' => {
-        'encoding'      => 'FLAC',
-        'sampleRate'    => 44100,
-        'languageCode'  => 'fr-FR'
+      'config' => {
+        'encoding'        => 'FLAC',
+        'sampleRate'      => 44100,
+        'languageCode'    => 'fr-FR',
+        'profanityFilter' => false
       },
-      'audio_request' => {
+      'audio' => {
         'uri' => "gs://haymakerforever/uploads/#{filename}"
       }
     }
     body = Oj.dump(body)
 
     request = Typhoeus::Request.new(
-      'https://speech.googleapis.com/v1/speech:recognize',
+      'https://speech.googleapis.com/v1beta1/speech:syncrecognize',
       method: :post,
       body: body,
       params: { key: 'AIzaSyAKw3MqkmLIO_RFizJvxLwZ86oCELU0J6g' },
@@ -31,9 +32,8 @@ class SpeachToTextWorker
       return
     end
 
-    body        = Oj.load(response.body)
-    results     = body['responses'].first['results']
-    transcript  = results.find { |r| r['isFinal'] }['alternatives'].first['transcript']
+    body       = Oj.load(response.body)
+    transcript = body['results'].first['alternatives'].first['transcript']
 
     if transcript
       speach    = Speach.new(speaker, transcript, filename)
