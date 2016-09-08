@@ -7,6 +7,7 @@ set :puma_threads, [4, 4]
 set :puma_workers, 0
 
 set :use_sudo,        true
+set :pty,             false
 set :stage,           :production
 set :deploy_via,      :remote_cache
 set :deploy_to, "/var/www/#{fetch(:application)}"
