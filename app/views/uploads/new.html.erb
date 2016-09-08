@@ -1,0 +1,12 @@
+<h3>New upload</h3>
+
+<div class="new-upload">
+  <%= form_tag(uploads_path, method: :post, multipart: true) do %>
+    <%= label_tag :sound, 'Your sound' %>
+    <span class="hint">FLAC, mono, 16Khz</span>
+    <%= file_field_tag :sound %>
+    <%= label_tag :speaker, 'Who is speaking?' %>
+    <%= select_tag :speaker, options_for_select(Speaker::NAMES) %>
+    <%= submit_tag 'Upload' %>
+  <% end %>
+</div>
