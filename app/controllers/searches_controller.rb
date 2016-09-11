@@ -8,7 +8,12 @@ class SearchesController < ApplicationController
 
     query   = {
       query: {
-        match: { transcript: terms }
+        bool: {
+          should: [
+            { match: { transcript: terms } },
+            { term: { tags: params[:tags] } }
+          ]
+        }
       },
       filter: {
         term: { speaker: speaker }

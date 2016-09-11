@@ -10,14 +10,26 @@ class SpeachRepository
 
   mapping do
     indexes :transcript,  analyzer: 'snowball'
-    indexes :speaker,     type: 'string', index: 'not_analyzed'
-    indexes :filename,    type: 'string', index: 'not_analyzed'
+    indexes :speaker,     type: :string, index: :not_analyzed
+    indexes :filename,    type: :string, index: :not_analyzed
+    indexes :tags,        type: :string, index: :not_analyzed
   end
 
   create_index!
 
+  def serialize(document)
+    {
+      id: document.id,
+      speaker: document.speaker,
+      transcript: document.transcript,
+      filename: document.filename,
+      tags: document.tags.split(/\s+/).map(&:strip)
+    }
+  end
+
   def deserialize(document)
     hash = document['_source'.freeze]
-    Speach.new(hash['speaker'.freeze], hash['transcript'.freeze], hash['filename'.freeze])
+    hash['tags'.freeze] = hash['tags'.freeze].join(' ') if hash['tags'.freeze].is_a?(Array)
+    Speach.new(hash)
   end
 end

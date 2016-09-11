@@ -3,7 +3,9 @@ class SpeachToTextWorker
 
   sidekiq_options retry: 3
 
-  def perform(filename, speaker)
+  def perform(id)
+    speach = Speach.find(id)
+
     body = {
       'config' => {
         'encoding'        => 'FLAC',
@@ -12,7 +14,7 @@ class SpeachToTextWorker
         'profanityFilter' => false
       },
       'audio' => {
-        'uri' => "gs://haymakerforever/uploads/#{filename}"
+        'uri' => "gs://haymakerforever/uploads/#{speach.filename}"
       }
     }
     body = Oj.dump(body)
@@ -28,7 +30,7 @@ class SpeachToTextWorker
     response = request.run
 
     if response.code != 200
-      Sidekiq.logger.error "[Sp2Tx] Got #{response.code} when trying to process #{filename}"
+      Sidekiq.logger.error "[Sp2Tx] Got #{response.code} when trying to process #{speach.filename}"
       return
     end
 
@@ -36,8 +38,14 @@ class SpeachToTextWorker
     transcript = body['results'].first['alternatives'].first['transcript']
 
     if transcript
-      speach    = Speach.new(speaker, transcript, filename)
-      SpeachRepository.save(speach)
+      speach.transcript = transcript
+      result = SpeachRepository.save(speach)
+      if result.is_a?(Hash) && result.key?('_id')
+        speach.es_id = result['_id']
+        speach.save
+      else
+        Sidekiq.logger.error "[Sp2Tx] Got #{result} from ES"
+      end
     end
   end
 end

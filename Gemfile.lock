@@ -159,6 +159,8 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    has_secure_token (1.0.0)
+      activerecord (>= 3.0)
     hashie (3.4.4)
     i18n (0.7.0)
     ice_nine (0.11.2)
@@ -298,6 +300,7 @@ DEPENDENCIES
   elasticsearch-ruby
   fog-google
   google-api-client (>= 0.6.2, < 0.9)
+  has_secure_token
   jquery-rails
   nokogiri (~> 1.6.7.2)
   oj
