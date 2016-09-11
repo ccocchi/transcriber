@@ -1,1 +1,1 @@
-$redis = Redis.new
+$redis = Redis.new(db: 1)
