@@ -8,8 +8,14 @@ class SpeachRepository
   index :speaches
   type  :speach
 
+  # settings analysis: {
+  #   analyzer: {
+  #     french_anal: { type: 'snowball', language: 'French', stopwords: '_french_' }
+  #   }
+  # }
+
   mapping do
-    indexes :transcript,  analyzer: 'snowball'
+    indexes :transcript,  type: :string, analyzer: 'french'
     indexes :speaker,     type: :string, index: :not_analyzed
     indexes :filename,    type: :string, index: :not_analyzed
     indexes :tags,        type: :string, index: :not_analyzed
