@@ -14,8 +14,42 @@ class SpeachRepository
   #   }
   # }
 
+  settings analysis: {
+    "filter": {
+        "french_elision": {
+          "type":         "elision",
+          "articles_case": true,
+            "articles": [
+              "l", "m", "t", "qu", "n", "s",
+              "j", "d", "c", "jusqu", "quoiqu",
+              "lorsqu", "puisqu"
+            ]
+        },
+        "french_stop": {
+          "type":       "stop",
+          "stopwords":  "_french_"
+        },
+        "french_stemmer": {
+          "type":       "stemmer",
+          "language":   "light_french"
+        }
+      },
+      "analyzer": {
+        "custom_french": {
+          "tokenizer": "standard",
+          "filter": [
+            "french_elision",
+            "lowercase",
+            "asciifolding",
+            "french_stop",
+            "french_stemmer"
+          ]
+        }
+      }
+    }
+
   mapping do
-    indexes :transcript,  type: :string, analyzer: 'french'
+    indexes :transcript,  type: :string, analyzer: 'custom_french'
     indexes :speaker,     type: :string, index: :not_analyzed
     indexes :filename,    type: :string, index: :not_analyzed
     indexes :tags,        type: :string, index: :not_analyzed
