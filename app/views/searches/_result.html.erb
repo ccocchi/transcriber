@@ -1,7 +1,11 @@
 <div class="result" style="border-bottom: 1px solid #000">
   <div>
-    <p><b>File: </b><%= link_to result.filename, "https://storage.googleapis.com/haymakerforever/uploads/#{result.filename}" %></p>
-    <p><b>Tags: </b><%= result.tags %> 
+    <p><b>File: </b>
+      <%= link_to result.filename, "https://storage.googleapis.com/haymakerforever/uploads/#{result.filename}", class: 'file' %>
+      <a href="#" class="player play">Play</a>
+      <a href="#" class="player pause hide">Pause</a>
+    </p>
+    <p><b>Tags: </b><%= result.tags %>
 
     </p>
     <p><b>Fulltext: </b><%= result.transcript %></p>
