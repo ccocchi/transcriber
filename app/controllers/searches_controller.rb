@@ -11,7 +11,7 @@ class SearchesController < ApplicationController
         bool: {
           should: [
             { match: { transcript: terms } },
-            { term: { tags: params[:tags] } }
+            { term: { tags: params[:tags].downcase } }
           ]
         }
       },

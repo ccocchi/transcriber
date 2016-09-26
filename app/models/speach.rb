@@ -1,7 +1,7 @@
 require 'active_support/core_ext/securerandom'
 
 class Speach
-  attr_accessor :id, :speaker, :transcript, :filename, :tags, :es_id
+  attr_accessor :id, :speaker, :transcript, :filename, :tags
 
   def initialize(attrs = {})
     attrs.each { |k, v| public_send("#{k}=", v) }
@@ -10,12 +10,10 @@ class Speach
 
   def to_hash
     {
-      id: id,
       speaker: speaker,
       transcript: transcript,
       filename: filename,
-      tags: tags,
-      es_id: es_id
+      tags: tags
     }
   end
 

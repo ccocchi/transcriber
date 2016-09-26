@@ -41,7 +41,6 @@ class SpeachToTextWorker
       speach.transcript = transcript
       result = SpeachRepository.save(speach)
       if result.is_a?(Hash) && result.key?('_id')
-        speach.es_id = result['_id']
         speach.save
       else
         Sidekiq.logger.error "[Sp2Tx] Got #{result} from ES"
