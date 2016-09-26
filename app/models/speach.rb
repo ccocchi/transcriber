@@ -1,7 +1,7 @@
 require 'active_support/core_ext/securerandom'
 
 class Speach
-  attr_accessor :id, :speaker, :transcript, :filename, :tags
+  attr_accessor :id, :speaker, :transcript, :filename, :tags, :es_id
 
   def initialize(attrs = {})
     attrs.each { |k, v| public_send("#{k}=", v) }
