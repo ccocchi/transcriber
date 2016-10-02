@@ -9,7 +9,7 @@ class SpeachesController < ActionController::Base
     @speach = Speach.find(params[:id])
     @speach.transcript = params[:transcript]
     @speach.save
-    SpeachRepository.update(@speach)
+    SpeachRepository.save(@speach)
     redirect_to root_path, notice: 'Speach updated successfully.'
   end
 end
