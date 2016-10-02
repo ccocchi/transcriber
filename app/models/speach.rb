@@ -10,6 +10,7 @@ class Speach
 
   def to_hash
     {
+      id: id,
       speaker: speaker,
       transcript: transcript,
       filename: filename,
