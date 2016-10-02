@@ -8,7 +8,11 @@
     <%= label_tag :speaker, 'Who is speaking?' %>
     <%= select_tag :speaker, options_for_select(Speaker::NAMES) %>
     <%= label_tag :tags, 'Tags' %>
-    <%= text_field_tag :tags %>
+    <%= text_field_tag :tags, nil, placeholder: 'Space separated' %>
     <%= submit_tag 'Upload' %>
   <% end %>
+</div>
+
+<div>
+  <%= render 'shared/tags' %>
 </div>
