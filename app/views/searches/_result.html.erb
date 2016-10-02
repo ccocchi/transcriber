@@ -8,6 +8,6 @@
       <span class="icon"></span>
     </p>
     <p><b>Tags: </b><%= result.tags %></p>
-    <p><b>Fulltext: </b><%= result.transcript %></p>
+    <p><b>Fulltext: </b><%= result.transcript %> <%= link_to 'Edit', edit_speach_path(result) %></p>
   </div>
 </div>

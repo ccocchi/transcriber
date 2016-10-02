@@ -18,6 +18,14 @@ class Speach
     }
   end
 
+  def to_param
+    id
+  end
+
+  def model_name
+    'speach'.freeze
+  end
+
   def save
     result = $redis.mapped_hmset(redis_key, to_hash)
     result == 'OK'.freeze

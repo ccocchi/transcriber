@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   root 'searches#new'
 
-  resources :uploads, only: [:new, :create]
-  resources :searches, only: [:new]
+  resources :uploads,   only: [:new, :create]
+  resources :searches,  only: [:new]
+  resources :speaches,  only: [:edit, :update]
   get '/search' => 'searches#search'
 
   # The priority is based upon order of creation: first created -> highest priority.

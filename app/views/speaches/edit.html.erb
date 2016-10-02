@@ -1,0 +1,14 @@
+<h3>Edit speach</h3>
+
+<div class="">
+  <%= form_tag(speach_path(@speach), method: :put) do %>
+    <p>
+      Tags: <%= @speach.tags %>
+    </p>
+    <%= label_tag :transcript, 'Transcript' %><br />
+    <%= text_area_tag :transcript, @speach.transcript, class: 'edit-transcript' %>
+    <p>
+      <%= submit_tag 'Update' %>
+    </p>
+  <% end %>
+</div>
