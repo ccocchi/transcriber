@@ -20,7 +20,7 @@ class SearchesController < ApplicationController
       }
     }
 
-    @results = SpeachRepository.search(query).to_a
+    @results = SpeachRepository.search(query, size: 100).to_a
     if @results.empty?
       head :no_content
     else
